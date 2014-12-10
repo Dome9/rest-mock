@@ -1,11 +1,15 @@
 {
   "name": "rest-mock",
   "version": "0.0.0",
-  "description": "",
+  "description": "express 4 middleware to mock rest server easily either with resources or collections",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Alon Valadji",
+  "repository": { 
+  	"type" : "git", 
+  	"url" : "https://github.com/Dome9/rest-mock.git"
+  },
+  "author": "Alon Valadji <alon@dome9.com>",
   "license": "MIT"
 }
