@@ -69,8 +69,7 @@ mock.collection = function(route, data){
         });
 
     router.post(route, function(req, res){
-        post_data(route, req.body);
-        res.json(201, db[route]);
+        res.json(201, post_data(route, req.body));
     });
 
     router.delete(route  + '/:id', function(req, res){
