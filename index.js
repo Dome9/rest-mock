@@ -25,7 +25,7 @@ mock.collection = function(route, data){
             db[route].push(data);
         }
 
-        return db[route];
+        return data;
     };
 
     db[route] = [];
