@@ -88,6 +88,11 @@ mock.resource = function(route, data, code) {
     router.get(route, function(req, res){
         res.json(code || 200, db[route]);
     });
+
+    router.put(route, function(req, res){
+        if(code !== 401 && code !== 403) db[route] = req.body;
+        res.json(code || 201, db[route]);
+    });
 };
 
 router.get('/', function(req, res){
