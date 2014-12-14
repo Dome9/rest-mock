@@ -1,6 +1,6 @@
 {
   "name": "rest-mock",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "express 4 middleware to mock rest server easily either with resources or collections",
   "main": "index.js",
   "scripts": {
