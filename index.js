@@ -1,11 +1,30 @@
 var express = require('express');
 var _ = require('lodash');
 
-var mock = {};
-var db = {};
-var router = mock.router = express.Router();
+var mock = function(){
+    this.db = {};
+    this.router = express.Router();
 
-mock.collection = function(route, data){
+    var db = this.db;
+    var router = this.router;
+
+
+    router.get('/', function(req, res){
+
+        var result = _(db).keys().map(function(item){ return req.baseUrl + item}).value();
+
+        res.json({ resources: result });
+    });
+};
+
+mock.prototype.middleware = function(){
+    return this.router;
+};
+
+mock.prototype.collection = function(route, data){
+    var db = this.db;
+    var router = this.router;
+
     var isNumber = function(value){
         return /^\d+$/.test(value);
     };
@@ -32,7 +51,7 @@ mock.collection = function(route, data){
     if(data) post_data(route, data);
 
     router.get(route, function(req, res){
-        res.json(200, db[route]);
+        res.json(db[route]);
     });
 
     router.get(route  + '/:id', function(req, res){
@@ -55,7 +74,7 @@ mock.collection = function(route, data){
             req.body.id = result.id;
             result = db[route][index] = req.body;
 
-            res.json(201, result);
+            res.status(201).json(result);
         })
         .patch(function(req, res){
             var id = req.params.id;
@@ -63,13 +82,13 @@ mock.collection = function(route, data){
 
             var result = _.find(db[route], {id: id});
 
-            _.extend(result, req.body);
+            _.assign(result, req.body);
 
-            res.json(201, result);
+            res.status(201).json(result);
         });
 
     router.post(route, function(req, res){
-        res.json(201, post_data(route, req.body));
+        res.status(201).json(post_data(route, req.body));
     });
 
     router.delete(route  + '/:id', function(req, res){
@@ -78,27 +97,29 @@ mock.collection = function(route, data){
 
         _.remove(db[route], {id: id});
 
-        res.send(204);
+        res.status(204).send();
     });
 };
 
-mock.resource = function(route, data, code) {
+mock.prototype.resource = function(route, data, code) {
+    var db = this.db;
+    var router = this.router;
+
     db[route] = data;
 
     router.get(route, function(req, res){
-        res.json(code || 200, db[route]);
+        res.status(code || 200).json(db[route]);
     });
 
     router.put(route, function(req, res){
         if(code !== 401 && code !== 403) db[route] = req.body;
-        res.json(code || 201, db[route]);
+        res.status(code || 201).json(db[route]);
     });
+
+    router.patch(route, function(req, res){
+        if(code !== 401 && code !== 403) _.assign(db[route], req.body);
+        res.status(code || 201).json(db[route]);
+    })
 };
-
-router.get('/', function(req, res){
-    var result = _(db).keys().map(function(item){ return '/api' + item}).value();
-
-    res.json({ resources: result });
-});
 
 module.exports = mock;

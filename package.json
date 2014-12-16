@@ -4,12 +4,22 @@
   "description": "express 4 middleware to mock rest server easily either with resources or collections",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/Dome9/rest-mock.git"
   },
   "author": "Alon Valadji <alon@dome9.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "body-parser": "^1.10.0",
+    "chai": "^1.10.0",
+    "express": "^4.10.6",
+    "mocha": "^2.0.1",
+    "supertest": "^0.15.0"
+  },
+  "dependencies": {
+    "lodash": "^2.4.1"
+  }
 }
