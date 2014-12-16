@@ -55,13 +55,34 @@ describe('Rest Mock', function(){
                 .patch('/test')
                 .send({ partial: true })
                 .expect(201, '{"test":true,"partial":true}', done)
-        })
+        });
     });
 
     describe('Collection', function(){
         it('mock should have a collection function', function(){
             expect(mock.collection).to.be.a('function');
-        })
+        });
+
+        it('should create a new collection and get', function(){
+        });
+
+        it('should create a new collection with data and get', function(){
+        });
+
+        it('should get collection item', function(){
+        });
+
+        it('should post to a collection new item', function(){
+        });
+
+        it('should put a collection item with data', function(){
+        });
+
+        it('should patch a collection item with partial data', function(){
+        });
+
+        it('should delete an item from collection', function(){
+        });
     });
 
     describe('Mock Middleware', function(){
@@ -75,6 +96,6 @@ describe('Rest Mock', function(){
             request(app)
                 .get('/')
                 .expect(200, '{"resources":[]}', done);
-        })
+        });
     })
 });
