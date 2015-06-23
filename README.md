@@ -7,12 +7,12 @@
 Usage:
 
 ```javascript
-var lib = require('../');
+var Mock = require('rest-mock');
 var express = require('express');
 var bodyParser = require('body-parser');
 
 var app = express();
-var mock = new lib();
+var mock = new Mock();
 
 mock.resource('/config', { development: true });
 mock.collection('/ips', [{ip: '192.1.1.1'}, {ip: '192.1.1.2'}, {ip: '192.1.1.3'}]);
